@@ -25,7 +25,7 @@ class Register extends React.Component {
 
     onSubmitSignIn = (event) => {
         event.preventDefault();
-        fetch('http://localhost:5000/register', {
+        fetch('https://web-scraper-db.herokuapp.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -80,7 +80,6 @@ class Register extends React.Component {
                                     onChange={this.onPasswordChange}
                                 />
                             </div>
-                            {/* <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label> */}
                         </fieldset>
                         <div className="">
                             <input 
