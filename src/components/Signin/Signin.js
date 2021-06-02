@@ -5,7 +5,8 @@ class Signin extends React.Component {
         super();
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            loginError: ''
         }
     }
 
@@ -17,10 +18,17 @@ class Signin extends React.Component {
         this.setState({ signInPassword: event.target.value });
     }
 
+    errorDiv = () => {
+        <div>
+            Wrong email or password!
+        </div>
+    }
+
     onSubmitSignIn = (event) => {
         event.preventDefault();
-        fetch('https://web-scraper-db.herokuapp.com/signin', {
-            method: 'post',
+        //const urlSignin = 'https://web-scraper-db.herokuapp.com/signin'
+        fetch('http://localhost:3000/signin', {
+            method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email: this.state.signInEmail,
@@ -28,17 +36,17 @@ class Signin extends React.Component {
             })
         })
         .then(response => response.json())
-        .then(user => {
-            if (user) {
-                this.props.loadUser(user);
+        .then(response => {
+            if (response === 'success') {
                 this.props.onRouteChange('home');
+            } else if (response === 'passwordFail' || response === 'emailFail') {
+                this.setState({loginError: 'Wrong Credentials'})
             }
         })
         .catch((err) => {
-            console.log(err)
+            console.log('catch', err)
+            //this.setState({loginError: err.message});
         })
-        
-
     }
 
     render() {
@@ -69,8 +77,8 @@ class Signin extends React.Component {
                                 onChange={this.onPasswordChange}
                             />
                         </div>
-                        {/* <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label> */}
                     </fieldset>
+                    { this.state.loginError && <h4 className='loginError dark-red'> { this.state.loginError } </h4> }
                     <div className="">
                         <input 
                             onClick={this.onSubmitSignIn}
