@@ -18,16 +18,10 @@ class Signin extends React.Component {
         this.setState({ signInPassword: event.target.value });
     }
 
-    errorDiv = () => {
-        <div>
-            Wrong email or password!
-        </div>
-    }
-
     onSubmitSignIn = (event) => {
         event.preventDefault();
-        //const urlSignin = 'https://web-scraper-db.herokuapp.com/signin'
-        fetch('http://localhost:3000/signin', {
+        const urlSignin = 'https://web-scraper-db.herokuapp.com/signin'
+        fetch(urlSignin, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

@@ -25,8 +25,8 @@ class Register extends React.Component {
 
     onSubmitSignIn = (event) => {
         event.preventDefault();
-        //const urlRegister = 'https://web-scraper-db.herokuapp.com/register';
-        fetch('https://web-scraper-db.herokuapp.com/register', {
+        const urlRegister = 'https://web-scraper-db.herokuapp.com/register';
+        fetch(urlRegister, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
